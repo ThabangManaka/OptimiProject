@@ -1,0 +1,57 @@
+
+<nav class="navbar navbar-expand-lg ">
+  <div class="container-fluid">
+
+      <a class="navbar-brand" href="#">Home</a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle"  href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Go to Projects
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
+
+
+            <div class="input-group input-box mb-3">
+
+              <input type="text" class="form-control  form-control-sm" placeholder="Search term"
+               aria-label="Search term" aria-describedby="search-icon" [(ngModel)]="searchTerm" (input)="filterGroups()">  </div>
+
+            <ng-container  class="nav-item" *ngFor="let project of filteredProjects; let i = index" [class.selected]="selectedIndex === i">
+
+                 <div class="container">
+              <div class = row>
+                <div class="col-md-4 text-center top-column">
+                <img   src="{{project.image.link}}"  class="img-fluid centered-image">
+                </div>
+
+                <div class="col-md-8 last-column top-column">
+                  <li class="dropdown-header"> <span [innerHTML]="project.name | highlight: searchTerm" ></span></li>
+                  <li *ngFor="let group of project.groups"  >
+                    <a class="dropdown-item" [href]="group.url">
+                      <span [innerHTML]="group.name | highlight: searchTerm"></span>
+                    </a>
+
+                  </li>
+
+                <ng-container *ngIf="!searchTerm">
+                <li class="nav-item">
+                  <a class="dropdown-item addGroup"><fa-icon [icon]="faPlus"></fa-icon> Add Group</a></li>
+                 </ng-container>
+                </div>
+              </div>
+            </div>
+            </ng-container>
+
+          </ul>
+
+
+        </li>
+        <li class="nav-item"> <a class="nav-link">Products</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
